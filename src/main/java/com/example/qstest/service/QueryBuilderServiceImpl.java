@@ -24,21 +24,35 @@ public class QueryBuilderServiceImpl implements QueryBuilderService {
     private final EntityManager entityManager;
 
     @Override
-    public CriteriaQuery getQueryFromQueryString(String qs) {
+    public CriteriaQuery<Customer> getQueryFromQueryString(String qs) {
 
         final List<NameValuePair> params =
                 URLEncodedUtils.parse(qs, StandardCharsets.UTF_8);
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Customer> cq = cb.createQuery(Customer.class);
-
         Root<Customer> customer = cq.from(Customer.class);
-        List<Predicate> predicates = new ArrayList<>();
 
-        for (final NameValuePair param : params) {
-            predicates.add(cb.like(customer.get(param.getName()), param.getValue()));
-        }
+        List<Predicate> predicates = createPredicates(params, cb, customer);
         cq.where(predicates.toArray(new Predicate[0]));
         return cq;
+    }
+
+    private List<Predicate> createPredicates(List<NameValuePair> params,
+                                  CriteriaBuilder cb,
+                                  Root<Customer> customer){
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        for  (NameValuePair param : params) {
+            final String name = param.getName();
+            if (name.equals("creditLimit")){
+                predicates.add(cb.equal(customer.get(name), Integer.valueOf(param.getValue())));
+            }
+            else{
+                predicates.add(cb.like(customer.get(name), param.getValue()));
+            }
+        }
+        return predicates;
     }
 }

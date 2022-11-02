@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -32,6 +31,6 @@ public class Customer {
     private String city;
 
     @Column(name="CREDIT_LIMIT")
-    private BigDecimal creditLimit;
+    private Integer creditLimit;
 
 }

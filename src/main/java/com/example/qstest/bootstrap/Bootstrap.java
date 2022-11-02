@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 
 @Component
@@ -27,14 +26,14 @@ public class Bootstrap implements CommandLineRunner {
                 .name("Abbey Industries")
                 .city("Bradford")
                 .accountNumber("AD£999")
-                .creditLimit(BigDecimal.valueOf(1000))
+                .creditLimit(1000)
                 .build();
         Customer c2= Customer.builder()
                 .id(2L)
                 .name("Smiths and Co")
                 .city("London")
                 .accountNumber("DD55367")
-                .creditLimit(BigDecimal.valueOf(200))
+                .creditLimit(200)
                 .build();
 
         Customer c3 = Customer.builder()
@@ -42,7 +41,7 @@ public class Bootstrap implements CommandLineRunner {
                 .name("Bill's Bricks")
                 .city("London")
                 .accountNumber("2JUDJL")
-                .creditLimit(BigDecimal.valueOf(5000))
+                .creditLimit(5000)
                 .build();
 
         customerRepository.saveAll(Arrays.asList(c1,c2,c3));

@@ -4,17 +4,11 @@ package com.example.qstest;
 import com.example.qstest.model.Customer;
 import com.example.qstest.service.QueryBuilderService;
 import com.example.qstest.service.QueryBuilderServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.nio.charset.StandardCharsets;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
 import javax.persistence.EntityManager;
@@ -23,6 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 @DataJpaTest
+@Slf4j
 @TestPropertySource("classpath:application-test.properties")
 public class TestQueryStringParser {
 
@@ -36,6 +31,16 @@ public class TestQueryStringParser {
     @BeforeEach
     public void setup() {
         queryBuilderService = new QueryBuilderServiceImpl(entityManager);
+    }
+
+
+    @Test
+    public void multiValuedQS(){
+
+        qs = "city=London&creditLimit=1000";
+        CriteriaQuery query = queryBuilderService.getQueryFromQueryString(qs);
+        List<Customer> results = entityManager.createQuery(query).getResultList();
+        Assertions.assertEquals(results.size(),1);
     }
 
     @Test
