@@ -1,6 +1,7 @@
-package com.example.qstest.comtroller;
+package com.example.qstest.controller;
 
 import com.example.qstest.model.Customer;
+import com.example.qstest.model.SearchResult;
 import com.example.qstest.service.CustomerSearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,22 +13,24 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/customers")
+@RequestMapping("/api/customers")
 @Slf4j
 public class CustomerController {
 
     private final CustomerSearchService customerSearchService;
 
     @GetMapping({"/", ""})
-    public List<Customer> findAll(){
+    public SearchResult findAll(){
 
-        return customerSearchService.findAllCustomers();
+        List<Customer> customers = customerSearchService.findAllCustomers();
+        return SearchResult.builder().customers(customers).count(customers.size()).build();
+
     }
 
     @GetMapping("/search")
-    public List<Customer> findWithParams(){
+    public SearchResult findWithParams(){
 
-        return customerSearchService.findCustomersWithParams();
+        return null;
     }
 
 }

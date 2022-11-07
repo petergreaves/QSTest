@@ -1,7 +1,9 @@
 package com.example.qstest.service;
 
+import com.example.qstest.beans.SupportedParams;
 import com.example.qstest.model.Customer;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.springframework.stereotype.Service;
@@ -18,8 +20,10 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class QueryBuilderServiceImpl implements QueryBuilderService {
 
+    private final SupportedParams supportedParams;
     @PersistenceContext
     private final EntityManager entityManager;
 
@@ -42,9 +46,11 @@ public class QueryBuilderServiceImpl implements QueryBuilderService {
                                   CriteriaBuilder cb,
                                   Root<Customer> customer){
 
+
+        List<NameValuePair> parsedParams = parseParams(params);
         List<Predicate> predicates = new ArrayList<>();
 
-        for  (NameValuePair param : params) {
+        for  (NameValuePair param : parsedParams) {
             final String name = param.getName();
             if (name.equals("creditLimit")){
                 predicates.add(cb.equal(customer.get(name), Integer.valueOf(param.getValue())));
@@ -54,5 +60,22 @@ public class QueryBuilderServiceImpl implements QueryBuilderService {
             }
         }
         return predicates;
+    }
+
+    private List<NameValuePair> parseParams(List<NameValuePair> paramsIn){
+
+        List<NameValuePair> returned = new ArrayList<>();
+
+        paramsIn.spliterator().forEachRemaining( nvp -> {
+                if (supportedParams.getParams().contains(nvp.getName())){
+                    log.info("Supported param : " + nvp);
+                    returned.add(nvp);
+                }
+                else{
+                    log.info("Parsing out unsupported param : " + nvp);
+                }
+        });
+        return returned;
+
     }
 }
