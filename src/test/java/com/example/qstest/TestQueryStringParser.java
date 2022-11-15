@@ -45,7 +45,7 @@ public class TestQueryStringParser {
         qs = "";
         CriteriaQuery<Customer> query = queryBuilderService.getQueryFromQueryString(qs);
         List<Customer> results = entityManager.createQuery(query).getResultList();
-        Assertions.assertEquals(results.size(),4);
+        Assertions.assertEquals(results.size(),6);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class TestQueryStringParser {
         qs = "foo=bar";
         CriteriaQuery<Customer> query = queryBuilderService.getQueryFromQueryString(qs);
         List<Customer> results = entityManager.createQuery(query).getResultList();
-        Assertions.assertEquals(results.size(),4);
+        Assertions.assertEquals(results.size(),6);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class TestQueryStringParser {
         qs = null;
         CriteriaQuery<Customer> query = queryBuilderService.getQueryFromQueryString(qs);
         List<Customer> results = entityManager.createQuery(query).getResultList();
-        Assertions.assertEquals(results.size(),4);
+        Assertions.assertEquals(results.size(),6);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class TestQueryStringParser {
         qs = "city=London&creditLimit=1000";
         CriteriaQuery<Customer> query = queryBuilderService.getQueryFromQueryString(qs);
         List<Customer> results = entityManager.createQuery(query).getResultList();
-        Assertions.assertEquals(results.size(),1);
+        Assertions.assertEquals(results.size(),2);
     }
 
     @Test

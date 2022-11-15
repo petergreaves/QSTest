@@ -40,7 +40,7 @@ public class TestEntityManager {
         cq.where(predicates.toArray(new Predicate[0]));
 
         List<Customer> results = entityManager.createQuery(cq).getResultList();
-        Assertions.assertEquals(results.size(),1);
+        Assertions.assertEquals(results.size(),2);
 
     }
 

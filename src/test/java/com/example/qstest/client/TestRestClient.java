@@ -31,7 +31,8 @@ public class TestRestClient {
     public void testClient(){
 
         SearchResult result = restTemplate.getForObject(url, SearchResult.class);
-        Assertions.assertEquals(Objects.requireNonNull(result).getCount(), 4);
+        Assertions.assertEquals(Objects.requireNonNull(result).getCount(), 6);
         Assertions.assertEquals(result.getCustomers().get(0).getCreditLimit(), 1000);
     }
+
 }
