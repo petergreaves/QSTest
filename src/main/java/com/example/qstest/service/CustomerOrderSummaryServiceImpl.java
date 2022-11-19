@@ -1,14 +1,11 @@
 package com.example.qstest.service;
 
-import com.example.qstest.model.Customer;
-import com.example.qstest.model.CustomerOrdersSummary;
+import com.example.qstest.cache.CustomerOrdersSummary;
 import com.example.qstest.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -24,7 +21,6 @@ public class CustomerOrderSummaryServiceImpl implements CustomerOrderSummaryServ
         CustomerOrdersSummary customerOrdersSummary =
                 CustomerOrdersSummary
                         .builder()
-                        .customerID(customerID)
                         .build();
 
         final int k = orderRepository.countByCustomerID(customerID);

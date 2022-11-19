@@ -1,4 +1,4 @@
-package com.example.qstest.model;
+package com.example.qstest.cache;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Data
 public class CustomerOrdersSummary {
-    private Long customerID;
     private Integer orderCount;
     private BigDecimal totalValue;
 }

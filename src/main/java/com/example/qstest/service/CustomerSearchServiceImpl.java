@@ -1,10 +1,8 @@
 package com.example.qstest.service;
 
 import com.example.qstest.model.Customer;
-import com.example.qstest.model.CustomerOrdersSummary;
-import com.example.qstest.model.Order;
+import com.example.qstest.cache.CustomerOrdersSummary;
 import com.example.qstest.repository.CustomerRepository;
-import com.example.qstest.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
