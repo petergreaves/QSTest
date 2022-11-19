@@ -1,22 +1,27 @@
 package com.example.qstest.model;
 
+import com.example.qstest.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+
 
 @Data
 @Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="CUSTOMER")
+@Table(name="CUSTOMERS")
 public class Customer {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="CUSTOMER_ID")
     private Long id;
 
     @Column(name="CUSTOMER_NAME")
@@ -30,5 +35,12 @@ public class Customer {
 
     @Column(name="CREDIT_LIMIT")
     private Integer creditLimit;
+
+    @Transient
+    private Integer orderCount = 0;
+
+    @Transient
+    private BigDecimal ordersValue = new BigDecimal(0d);
+
 
 }

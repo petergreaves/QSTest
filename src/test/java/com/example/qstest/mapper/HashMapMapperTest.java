@@ -31,18 +31,18 @@ public class HashMapMapperTest {
 
     }
 
-    @Test
-    public void testHashMapCustomerMapper(){
-
-        Customer c = mapper.hashMapToCustomer(customerHashMap);
-
-        Assertions.assertAll(
-                () ->  assertTrue("city", c.getCity().equals(customerHashMap.get("city"))),
-                () -> assertTrue("customer name", c.getName().equals(customerHashMap.get("customerName"))),
-                () -> assertTrue("account number", c.getAccountNumber().equals(customerHashMap.get("accountNo"))),
-                () -> assertTrue("credit limit", c.getCreditLimit().equals(customerHashMap.get("creditMax"))),
-                () -> assertTrue("id", c.getId().equals(customerHashMap.get("id")))
-        );
-
-    }
+//    @Test
+//    public void testHashMapCustomerMapper(){
+//
+//        Customer c = mapper.hashMapToCustomer(customerHashMap);
+//
+//        Assertions.assertAll(
+//                () ->  assertTrue("city", c.getCity().equals(customerHashMap.get("city"))),
+//                () -> assertTrue("customer name", c.getName().equals(customerHashMap.get("customerName"))),
+//                () -> assertTrue("account number", c.getAccountNumber().equals(customerHashMap.get("accountNo"))),
+//                () -> assertTrue("credit limit", c.getCreditLimit().equals(customerHashMap.get("creditMax"))),
+//                () -> assertTrue("id", c.getId().equals(customerHashMap.get("id")))
+//        );
+//
+//    }
 }

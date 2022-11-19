@@ -1,7 +1,10 @@
 package com.example.qstest.service;
 
 import com.example.qstest.model.Customer;
+import com.example.qstest.model.CustomerOrdersSummary;
+import com.example.qstest.model.Order;
 import com.example.qstest.repository.CustomerRepository;
+import com.example.qstest.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +19,22 @@ import java.util.stream.StreamSupport;
 public class CustomerSearchServiceImpl implements CustomerSearchService {
 
     private final CustomerRepository customerRepository;
+    private final CustomerOrderSummaryService customerOrdersSummaryService;
+
     @PersistenceContext
     private final EntityManager entityManager;
     @Override
     public List<Customer> findAllCustomers() {
 
-        return StreamSupport
-                .stream(customerRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+        return customerRepository
+                .findAll()
+                .stream()
+                .map(c -> {
+                    final CustomerOrdersSummary summary= customerOrdersSummaryService.getOrdersSummaryForCustomer(c.getId());
+                    c.setOrderCount(summary.getOrderCount());
+                    c.setOrdersValue(summary.getTotalValue());
+                    return c;
+                }).collect(Collectors.toList());
     }
 
     @Override
